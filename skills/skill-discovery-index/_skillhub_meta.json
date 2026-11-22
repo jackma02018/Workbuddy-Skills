@@ -1,0 +1,11 @@
+{
+  "name": "技能发现与选型索引",
+  "installedAt": 1789551156512,
+  "source": "marketplace",
+  "version": "1.0.0",
+  "skillId": "skill_2095885247719591936",
+  "description_zh": "帮用户在 1000+ 技能生态里快速找到对的那一个：11 大功能分类地图、按「真实用例」选型的判断流程、技能质量评估标准（可移植性、零依赖、可验证产出）、以及自建技能时的查重与贡献规范。当用户问「有没有能干 X 的技能」「该装哪个技能」「这个技能靠谱吗」「怎么找技能」时触发。",
+  "description_en": "Find the right skill among a 1000+ ecosystem: a category map of 11 functional domains, a real-use-case driven selection flow, skill quality criteria (portability, zero dependencies, verifiable output), and duplication checks plus contribution standards for authoring new skills. Trigger when the user asks whether a skill exists for X, which skill to install, whether a skill is trustworthy, or how to find skills.",
+  "iconSource": "letter:auto",
+  "installedContentHash": "sha256:4d599af56bdfe871ec81fc4dc3d528f7954dff6553d42809cdeb4988109120dc"
+}

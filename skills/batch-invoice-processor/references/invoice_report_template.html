@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>发票汇总报告</title>
+<style>
+  /* Wise-inspired fintech design: bright green accent, clean, friendly */
+  :root {
+    --green: #00B868;
+    --green-light: #E6FAF1;
+    --green-dark: #008A4C;
+    --text-primary: #1A1A2E;
+    --text-secondary: #555770;
+    --text-muted: #8E8E9E;
+    --bg-page: #F7F8FA;
+    --bg-card: #FFFFFF;
+    --border: #E4E5EB;
+    --red: #E53935;
+    --orange: #F57C00;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--font);
+    background: var(--bg-page);
+    color: var(--text-primary);
+    line-height: 1.6;
+    padding: 32px 16px;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+
+  /* Header */
+  .header {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    border: 1px solid var(--border);
+  }
+  .header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  .header .subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  /* Summary Cards */
+  .summary-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .summary-card {
+    background: var(--bg-card);
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid var(--border);
+  }
+  .summary-card .label {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .summary-card .value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .summary-card .value.green { color: var(--green); }
+  .summary-card .value.red { color: var(--red); }
+  .summary-card .value.orange { color: var(--orange); }
+
+  /* Sections */
+  .section {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 24px 32px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+  }
+  .section h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--green-light);
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead th {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--green-light);
+    color: var(--green-dark);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    border-bottom: 2px solid var(--green);
+  }
+  tbody td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: #F0FAF5; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .tag-warn { background: #FFF3E0; color: #E65100; }
+  .tag-error { background: #FFEBEE; color: #C62828; }
+  .tag-ok { background: var(--green-light); color: var(--green-dark); }
+  .tag-info { background: #E3F2FD; color: #1565C0; }
+
+  /* Alerts */
+  .alert {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .alert-warn { background: #FFF8E1; border-left: 4px solid var(--orange); }
+  .alert-error { background: #FFEBEE; border-left: 4px solid var(--red); }
+  .alert-info { background: #E3F2FD; border-left: 4px solid #1976D2; }
+  .alert-success { background: var(--green-light); border-left: 4px solid var(--green); }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .section, .header, .summary-card { box-shadow: none; border: 1px solid #ddd; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>发票汇总报告</h1>
+    <div class="subtitle">生成时间：{{GENERATED_AT}} | 处理文件数：{{TOTAL_FILES}}</div>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="summary-row">
+    <div class="summary-card">
+      <div class="label">发票总数</div>
+      <div class="value">{{INVOICE_COUNT}}</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">价税合计</div>
+      <div class="value green">¥{{TOTAL_AMOUNT}}</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">涉及人员</div>
+      <div class="value">{{PERSON_COUNT}}</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">异常/重复</div>
+      <div class="value {{ANOMALY_CLASS}}">{{ANOMALY_COUNT}}</div>
+    </div>
+  </div>
+
+  <!-- 按人员统计 -->
+  <div class="section">
+    <h2>按人员统计</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>报销人</th>
+          <th class="num">发票张数</th>
+          <th class="num">不含税金额</th>
+          <th class="num">税额</th>
+          <th class="num">价税合计</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{PERSON_ROWS}}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 处理情况 -->
+  <div class="section">
+    <h2>处理情况</h2>
+    {{PROCESSING_NOTES}}
+  </div>
+
+  <!-- 异常明细（如有） -->
+  {{ANOMALY_SECTION}}
+
+  <!-- 重复明细（如有） -->
+  {{DUPLICATE_SECTION}}
+
+  <div class="footer">
+    由 batch-invoice-processor 自动生成 · 仅供参考，请以原始发票为准
+  </div>
+
+</div>
+</body>
+</html>

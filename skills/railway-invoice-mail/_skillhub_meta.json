@@ -1,0 +1,11 @@
+{
+  "name": "12306 邮箱发票助手",
+  "installedAt": 1789483492053,
+  "source": "marketplace",
+  "version": "1.0.0",
+  "skillId": "skill_2095364740761542656",
+  "description_zh": "从 QQ 邮箱批量抓取 12306 铁路电子发票附件，解压 PDF 并按「出发站-到达站-乘车日期-金额」重命名，生成带合计公式的 Excel 汇总，用于交通费报销归档。",
+  "description_en": "Fetch 12306 railway e-invoice attachments from QQ Mail in bulk, extract PDFs, rename them as origin-destination-date-amount, and generate an Excel summary with SUM totals for travel-expense reimbursement.",
+  "iconSource": "letter:auto",
+  "installedContentHash": "sha256:c1fe7cc5eb96ccdddba8c556a0146d956ad3cf991dd09faf149db799057b814b"
+}

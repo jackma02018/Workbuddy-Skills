@@ -1,0 +1,17 @@
+# 本地完整运行（含邮箱下载链路）所需依赖
+-r requirements.txt
+
+# 解密本地连接器凭证（fetch_mail.py / pipeline.py 的下载链路必需）
+cryptography>=42.0.0
+
+# 图片 / 扫描件 OCR（体积较大，按需安装）
+rapidocr-onnxruntime>=1.2.3
+
+# 城市 → 省份兜底字典
+cpca>=0.5.6
+
+# 如需导出 Excel 汇总再加
+# openpyxl>=3.1.0
+
+# 注意：pip 走默认 PyPI 源可能被护栏拦截，改用腾讯镜像：
+# pip install -r requirements-full.txt --index-url https://mirrors.cloud.tencent.com/pypi/simple

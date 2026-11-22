@@ -1,0 +1,11 @@
+{
+  "name": "批量发票处理",
+  "installedAt": 1789480846226,
+  "source": "marketplace",
+  "version": "1.0.0",
+  "skillId": "skill_2085355956360765440",
+  "description_zh": "批量提取电子发票结构化字段，自动归类费用、核验金额、检测重复与异常，输出Excel汇总、CSV与HTML审计报告，支持运费专票ERP预处理。",
+  "description_en": "Batch-extract structured e-invoice fields, auto-categorize expenses, verify amounts, detect duplicates/anomalies, and output Excel/CSV/HTML audit reports.",
+  "iconSource": "letter:auto",
+  "installedContentHash": "sha256:e158fefca79b07e68bf4f8cf115bb2aa477b55fc3940b6b166fa30fa692e6a90"
+}
